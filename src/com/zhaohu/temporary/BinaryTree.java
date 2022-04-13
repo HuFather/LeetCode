@@ -7,7 +7,18 @@ import java.util.List;
 
 public class BinaryTree {
 
-    public List<Integer> rightNum(ListNode node){
+    public static void main(String[] args) {
+        ListNode node=new ListNode(1);
+        ListNode left=new ListNode(2);
+        ListNode right=new ListNode(3);
+        left.left=new ListNode(4);
+        node.left=left;
+        node.right=right;
+
+        List<Integer> result= rightNum(node);
+
+    }
+    public static List<Integer> rightNum(ListNode node){
         List<Integer> result=new ArrayList<>();
         if(node==null){
             return result;
