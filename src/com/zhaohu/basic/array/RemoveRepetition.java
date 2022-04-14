@@ -11,7 +11,7 @@ public class RemoveRepetition {
     public static void main(String[] args) {
         int[] nums = new int[]{1, 1, 2};
 //        int s = removeDuplicates1(nums);
-        List<List<Integer>> result = threeSum(new int[]{-2,0,1,1,2});
+        List<List<Integer>> result = threeSum1(new int[]{-4, 0, 1, 3, 4, 6});
     }
 
     //双指针
@@ -77,6 +77,50 @@ public class RemoveRepetition {
                     start--;
                 }
             }
+        }
+
+        return result;
+    }
+
+    // -4,0,1,3,4,6
+    private static List<List<Integer>> threeSum1(int[] nums) {
+
+        nums = Arrays.stream(nums).sorted().toArray();
+        List<List<Integer>> result = new ArrayList<>();
+        Set<String> duplicates = new HashSet<>();
+
+        int index = 1;
+        int end = nums.length - 1;
+        for (int i = 0; i < end; i++) {
+
+            if (index >= end) {
+                i++;
+                index = i + 2;
+                end = nums.length-1;
+                continue;
+            }
+
+            int sum = nums[i] + nums[index] + nums[end];
+            if (sum == 0) {
+                List<Integer> res = new ArrayList<>();
+
+                res.add(nums[i]);
+                res.add(nums[index]);
+                res.add(nums[end]);
+                String str = nums[i] + "" + nums[index] + "" + nums[end];
+                if (!duplicates.contains(str)) {
+                    duplicates.add(str);
+                    result.add(res);
+                }
+                index++;
+                end--;
+            } else if (sum < 0) {
+                index++;
+            } else {
+                end--;
+            }
+            i--;
+
         }
 
         return result;
