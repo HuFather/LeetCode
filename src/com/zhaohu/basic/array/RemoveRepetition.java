@@ -11,7 +11,7 @@ public class RemoveRepetition {
     public static void main(String[] args) {
         int[] nums = new int[]{1, 1, 2};
 //        int s = removeDuplicates1(nums);
-        List<List<Integer>> result = threeSum1(new int[]{-4, 0, 1, 3, 4, 6});
+        List<List<Integer>> result = threeSum(new int[]{-2,0,1,1,2});
     }
 
     //双指针
@@ -47,6 +47,10 @@ public class RemoveRepetition {
     //来源：力扣（LeetCode）
     //链接：https://leetcode-cn.com/problems/1fGaJU
     //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+    //-2,0,1,1,2，2
+    //=0，a\b右移一位
+    //>0, c左移一位
+    //<0, b右移一位
     private static List<List<Integer>> threeSum(int[] nums) {
         nums = Arrays.stream(nums).sorted().toArray();
         List<List<Integer>> result = new ArrayList<>();
@@ -65,7 +69,12 @@ public class RemoveRepetition {
                     duplicates.add(str);
                     result.add(res);
                 }
+                if(index!=end-1){
+                    start--;
+                    index=start+2;
+                }
                 index++;
+                end=nums.length-1;
             } else if (temp > 0) {
                 end--;
                 start--;
