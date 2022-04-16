@@ -47,50 +47,47 @@ public class RemoveRepetition {
     //来源：力扣（LeetCode）
     //链接：https://leetcode-cn.com/problems/1fGaJU
     //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-    //-2,0,1,1,2，2
+    //-2,-1,0,1,2,3
     //=0，a\b右移一位
     //>0, c左移一位
     //<0, b右移一位
     private static List<List<Integer>> threeSum(int[] nums) {
-        nums = Arrays.stream(nums).sorted().toArray();
         List<List<Integer>> result = new ArrayList<>();
-        Set<String> duplicates = new HashSet<>();
-        int index = 1, end = nums.length - 1;
-        for (int start = 0; start < end - 1 && index < end; start++) {
-            int temp = nums[start] + nums[index] + nums[end];
-            if (temp == 0) {
-                List<Integer> res = new ArrayList<>();
+        Arrays.sort(nums);
 
-                res.add(nums[start]);
-                res.add(nums[index]);
-                res.add(nums[end]);
-                String str = nums[start] + "" + nums[index] + "" + nums[end];
-                if (!duplicates.contains(str)) {
-                    duplicates.add(str);
-                    result.add(res);
+        int n=nums.length;
+        for (int start = 0; start < n; start++) {
+            if(start>0 && nums[start]==nums[start-1]){
+                continue;
+            }
+            int end=n-1;
+            int target=-nums[start];
+            for (int index = start+1; index < n; index++) {
+                if(index>start+1 && nums[index]==nums[index-1]){
+                    continue;
                 }
-                if(index!=end-1){
-                    start--;
-                    index=start+2;
+                while (index<end && nums[index]+nums[end]>target){
+                    --end;
                 }
-                index++;
-                end=nums.length-1;
-            } else if (temp > 0) {
-                end--;
-                start--;
-            } else {
-                if (index == end - 1) {
-                    index = start + 2;
-                } else {
-                    index++;
-                    start--;
+                if(index==end){
+                    break;
+                }
+                if(nums[index]+nums[end]==target){
+                    List<Integer> list=new ArrayList<>();
+                    list.add(nums[start]);
+                    list.add(nums[index]);
+                    list.add(nums[end]);
+                    result.add(list);
                 }
             }
         }
-
         return result;
     }
 
+    private static ListNode sortList(ListNode head){
+
+        return null;
+    }
     //输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
     //递归解决
     private static int[] reversePrint(ListNode head) {
