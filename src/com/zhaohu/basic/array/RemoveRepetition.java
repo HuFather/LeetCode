@@ -1,5 +1,7 @@
 package com.zhaohu.basic.array;
 
+import org.w3c.dom.NodeList;
+
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -11,7 +13,17 @@ public class RemoveRepetition {
     public static void main(String[] args) {
         int[] nums = new int[]{1, 1, 2};
 //        int s = removeDuplicates1(nums);
-        List<List<Integer>> result = threeSum(new int[]{3,0,-2,-1,1,2});
+//        List<List<Integer>> result = threeSum(new int[]{3,0,-2,-1,1,2});
+
+        RemoveRepetition removeRepetition=new RemoveRepetition();
+        RemoveRepetition.sortList(removeRepetition.getList());
+    }
+
+    ListNode getList(){
+        ListNode list=new ListNode(1);
+        list.next=new ListNode(2);
+        list.next.next=new ListNode(3);
+        return list;
     }
 
     //双指针
@@ -84,9 +96,29 @@ public class RemoveRepetition {
         return result;
     }
 
+    /**
+     * 给定链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表
+     * 1-2-3
+     * @param head
+     * @return
+     */
     private static ListNode sortList(ListNode head){
 
-        return null;
+        ListNode first=head;
+        while (first!=null){
+            ListNode second=first.next;
+            while (second!=null){
+                if(first.val< second.val){
+                    first.next=second.next;
+                    second.next=first;
+                    second=first.next;
+                }else {
+                    second=second.next;
+                }
+            }
+            first=first.next;
+        }
+        return head;
     }
     //输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
     //递归解决
