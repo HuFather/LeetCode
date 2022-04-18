@@ -20,9 +20,9 @@ public class RemoveRepetition {
     }
 
     ListNode getList(){
-        ListNode list=new ListNode(1);
+        ListNode list=new ListNode(3);
         list.next=new ListNode(2);
-        list.next.next=new ListNode(3);
+        list.next.next=new ListNode(1);
         return list;
     }
 
@@ -104,21 +104,48 @@ public class RemoveRepetition {
      */
     private static ListNode sortList(ListNode head){
 
-        ListNode first=head;
-        while (first!=null){
-            ListNode second=first.next;
-            while (second!=null){
-                if(first.val< second.val){
-                    first.next=second.next;
-                    second.next=first;
-                    second=first.next;
-                }else {
-                    second=second.next;
-                }
-            }
-            first=first.next;
+        if(head==null || head.next==null)
+            return head;
+
+        return sortList(head,null);
+    }
+    static ListNode sortList(ListNode head,ListNode tail){
+        if(head==null)
+            return head;
+
+        ListNode slow=head;
+        ListNode fast=head;
+        while (fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
         }
-        return head;
+        ListNode mid=slow;
+        ListNode left=sortList(head,mid);
+        ListNode right=sortList(mid,tail);
+        ListNode mergerd=merge(left,right);
+
+        return mergerd;
+    }
+
+   static ListNode merge(ListNode left,ListNode right){
+        ListNode dummyHead=new ListNode(0);
+        ListNode temp=dummyHead,temp1=left,temp2=right;
+        while (temp1!=null && right!=null){
+            if(temp1.val<temp2.val){
+                temp.next=temp1;
+                temp1=temp1.next;
+            }else {
+                temp.next=temp2;
+                temp2=temp2.next;
+            }
+        }
+        if(temp1!=null){
+            temp.next=temp1;
+        }else if(temp2!=null){
+            temp.next=temp2;
+        }
+
+        return dummyHead.next;
     }
     //输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
     //递归解决
@@ -144,13 +171,14 @@ public class RemoveRepetition {
         result.add(node.val);
     }
 
-    public class ListNode {
-        int val;
-        ListNode next;
 
-        ListNode(int x) {
-            val = x;
-        }
+
+}
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode(int x) {
+        val = x;
     }
-
 }
