@@ -1,5 +1,7 @@
 package com.zhaohu.basic.array;
 
+import org.w3c.dom.NodeList;
+
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -11,7 +13,17 @@ public class RemoveRepetition {
     public static void main(String[] args) {
         int[] nums = new int[]{1, 1, 2};
 //        int s = removeDuplicates1(nums);
-        List<List<Integer>> result = threeSum(new int[]{-2,0,1,1,2});
+//        List<List<Integer>> result = threeSum(new int[]{3,0,-2,-1,1,2});
+
+        RemoveRepetition removeRepetition=new RemoveRepetition();
+        RemoveRepetition.sortList(removeRepetition.getList());
+    }
+
+    ListNode getList(){
+        ListNode list=new ListNode(3);
+        list.next=new ListNode(2);
+        list.next.next=new ListNode(1);
+        return list;
     }
 
     //双指针
@@ -47,94 +59,94 @@ public class RemoveRepetition {
     //来源：力扣（LeetCode）
     //链接：https://leetcode-cn.com/problems/1fGaJU
     //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-    //-2,0,1,1,2，2
+    //-2,-1,0,1,2,3
     //=0，a\b右移一位
     //>0, c左移一位
     //<0, b右移一位
     private static List<List<Integer>> threeSum(int[] nums) {
-        nums = Arrays.stream(nums).sorted().toArray();
         List<List<Integer>> result = new ArrayList<>();
-        Set<String> duplicates = new HashSet<>();
-        int index = 1, end = nums.length - 1;
-        for (int start = 0; start < end - 1 && index < end; start++) {
-            int temp = nums[start] + nums[index] + nums[end];
-            if (temp == 0) {
-                List<Integer> res = new ArrayList<>();
+        Arrays.sort(nums);
 
-                res.add(nums[start]);
-                res.add(nums[index]);
-                res.add(nums[end]);
-                String str = nums[start] + "" + nums[index] + "" + nums[end];
-                if (!duplicates.contains(str)) {
-                    duplicates.add(str);
-                    result.add(res);
-                }
-                if(index!=end-1){
-                    start--;
-                    index=start+2;
-                }
-                index++;
-                end=nums.length-1;
-            } else if (temp > 0) {
-                end--;
-                start--;
-            } else {
-                if (index == end - 1) {
-                    index = start + 2;
-                } else {
-                    index++;
-                    start--;
-                }
-            }
-        }
-
-        return result;
-    }
-
-    // -4,0,1,3,4,6
-    private static List<List<Integer>> threeSum1(int[] nums) {
-
-        nums = Arrays.stream(nums).sorted().toArray();
-        List<List<Integer>> result = new ArrayList<>();
-        Set<String> duplicates = new HashSet<>();
-
-        int index = 1;
-        int end = nums.length - 1;
-        for (int i = 0; i < end; i++) {
-
-            if (index >= end) {
-                i++;
-                index = i + 2;
-                end = nums.length-1;
+        int n=nums.length;
+        for (int start = 0; start < n; start++) {
+            if(start>0 && nums[start]==nums[start-1]){
                 continue;
             }
-
-            int sum = nums[i] + nums[index] + nums[end];
-            if (sum == 0) {
-                List<Integer> res = new ArrayList<>();
-
-                res.add(nums[i]);
-                res.add(nums[index]);
-                res.add(nums[end]);
-                String str = nums[i] + "" + nums[index] + "" + nums[end];
-                if (!duplicates.contains(str)) {
-                    duplicates.add(str);
-                    result.add(res);
+            int end=n-1;
+            int target=-nums[start];
+            for (int index = start+1; index < n; index++) {
+                if(index>start+1 && nums[index]==nums[index-1]){
+                    continue;
                 }
-                index++;
-                end--;
-            } else if (sum < 0) {
-                index++;
-            } else {
-                end--;
+                while (index<end && nums[index]+nums[end]>target){
+                    --end;
+                }
+                if(index==end){
+                    break;
+                }
+                if(nums[index]+nums[end]==target){
+                    List<Integer> list=new ArrayList<>();
+                    list.add(nums[start]);
+                    list.add(nums[index]);
+                    list.add(nums[end]);
+                    result.add(list);
+                }
             }
-            i--;
-
         }
-
         return result;
     }
 
+    /**
+     * 给定链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表
+     * 1-2-3
+     * @param head
+     * @return
+     */
+    private static ListNode sortList(ListNode head){
+
+        if(head==null || head.next==null)
+            return head;
+
+        return sortList(head,null);
+    }
+    static ListNode sortList(ListNode head,ListNode tail){
+        if(head==null)
+            return head;
+
+        ListNode slow=head;
+        ListNode fast=head;
+        while (fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        ListNode mid=slow;
+        ListNode left=sortList(head,mid);
+        ListNode right=sortList(mid,tail);
+        ListNode mergerd=merge(left,right);
+
+        return mergerd;
+    }
+
+   static ListNode merge(ListNode left,ListNode right){
+        ListNode dummyHead=new ListNode(0);
+        ListNode temp=dummyHead,temp1=left,temp2=right;
+        while (temp1!=null && right!=null){
+            if(temp1.val<temp2.val){
+                temp.next=temp1;
+                temp1=temp1.next;
+            }else {
+                temp.next=temp2;
+                temp2=temp2.next;
+            }
+        }
+        if(temp1!=null){
+            temp.next=temp1;
+        }else if(temp2!=null){
+            temp.next=temp2;
+        }
+
+        return dummyHead.next;
+    }
     //输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
     //递归解决
     private static int[] reversePrint(ListNode head) {
@@ -159,13 +171,14 @@ public class RemoveRepetition {
         result.add(node.val);
     }
 
-    public class ListNode {
-        int val;
-        ListNode next;
 
-        ListNode(int x) {
-            val = x;
-        }
+
+}
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode(int x) {
+        val = x;
     }
-
 }
