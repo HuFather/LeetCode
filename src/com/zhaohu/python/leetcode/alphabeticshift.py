@@ -14,7 +14,9 @@ class Solution(object):
           
             if(map[(ord(s[i])-97)] == 1):
                 count = count+1
+
             map[(ord(t[i])-97)] -= 1
+            
             if(map[(ord(t[i])-97)] == 0):
                 count = count-1
 
