@@ -72,6 +72,33 @@ class Solution(object):
         current.next = list1 if list2 is None else list2
         return result.next
 
+    def hasCycle(self, head):
+        """
+        给你一个链表的头节点 head ，判断链表中是否有环。
+        如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，
+        评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：pos 不作为参数进行传递
+        如果链表中存在环 ，则返回 true 。 否则，返回 false
+        """
+        if head is None or head.next is None or head.next.next is None:
+            return False
+        slow=head
+        fast=head
+        while fast.next is not None and fast.next.next is not None:
+            slow=slow.next
+            fast=fast.next.next
+            if(slow==fast):
+                break
+        
+        if(fast is None or fast.next is None):
+            return False
+        if(slow==fast):
+            return True
+        return False
+
+        
+
+        
+
 
 solution = Solution()
 head = ListNode(1)
