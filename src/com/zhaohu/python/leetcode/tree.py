@@ -1,6 +1,8 @@
+
 from queue import Queue
 import queue
 import sys
+from turtle import right
 
 
 class TreeNode(object):
@@ -79,3 +81,56 @@ class Solution(object):
         if root.val >= maxVal or root.val <= minVal:
             return False
         return self.isValidBST(root.left, minVal, root.val) and self.isValidBST(root.right, root.val, maxVal)
+
+    def isSymmetric(self, root):
+        """
+        check that the tree is axisymmetric
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if(root):
+            return self.isSynmeric1(root.left, root.right)
+        return True
+
+    def isSynmeric1(self, root, node):
+        rootBool = root is not None
+        nodeBool = node is not None
+        if(rootBool + nodeBool == 1):
+            return False
+
+        if not rootBool and not nodeBool:
+            return True
+
+        result1 = self.isSynmeric1(root.left, node.right)
+        result2 = self.isSynmeric1(root.right, node.left)
+        return root.val == node.val and result1 and result2
+
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        [3,9,20,null,null,15,7]
+        """
+        
+        nodeList = []
+        if root is None:
+            return nodeList
+            
+        nodeList.append(root)
+        result=[]
+        while len(nodeList) > 0:
+            length = len(nodeList)
+            plus = 0
+            currentList=[]
+            while plus < length:
+                current=nodeList.pop(0)
+                if(current.left is not None):
+                    nodeList.append(current.left)
+                if(current.right is not None):
+                    nodeList.append(current.right)
+                currentList.append(current.val)
+                plus+=1
+            result.append(currentList)
+        return result
+                
+
