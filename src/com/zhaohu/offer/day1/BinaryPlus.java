@@ -1,5 +1,7 @@
 package com.zhaohu.offer.day1;
 
+import java.util.HashSet;
+
 /**
  * 给定两个 01 字符串 a 和 b ，请计算它们的和，并以二进制字符串的形式输出。
  *
@@ -15,6 +17,7 @@ public class BinaryPlus {
             b=a;
             a=c;
         }
+
         char[] ac=a.toCharArray();
         char[] bc=b.toCharArray();
         int carry=0;
@@ -51,5 +54,7 @@ public class BinaryPlus {
         if(carry==1)
             return carry+String.copyValueOf(ac);
         return String.copyValueOf(ac);
+
     }
+
 }
