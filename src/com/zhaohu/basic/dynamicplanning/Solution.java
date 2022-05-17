@@ -12,7 +12,7 @@ public class Solution {
     public static void main(String[] args) {
         // climbStairs(1);
         // findMaxSeries(new int[]{0, 1, 5, 3, 4, 6, 9, 7, 8});
-        int result = maxProfile(new int[]{});
+        int result = maxProfile(new int[]{7,1,5,3,6,4});
 
     }
 
@@ -101,18 +101,15 @@ public class Solution {
      * @return
      */
     public static int maxProfile(int[] nums) {
-        int[] result = new int[nums.length + 1];
-        result[0] = 0;
-        int index = 1;
+        if(null == nums || nums.length==0)
+            return 0;
+
+        int max=0;
+        int start=nums[0];
+
         for (int i = 1; i < nums.length; i++) {
-
-            result[i] = Math.max(result[i - 1], result[i - 1] + nums[i] - nums[index]);
-
-        }
-
-        int max = 0;
-        for (int i = 0; i < result.length; i++) {
-            max = Math.max(max, result[i]);
+            start=Math.min(start,nums[i]);
+            max=Math.max(max,nums[i]-start);
         }
 
         return max;
