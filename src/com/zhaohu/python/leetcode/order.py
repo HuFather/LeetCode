@@ -1,0 +1,34 @@
+from operator import index
+
+
+class Solution(object):
+    def merge(self, nums1, m, nums2, n):
+        """
+        :type nums1: List[int]
+        :type m: int
+        :type nums2: List[int]
+        :type n: int
+        :rtype: None Do not return anything, modify nums1 in-place instead.
+        """
+        index=0
+        i=0
+        j=0
+        while i < n and j<m :
+            if(nums1[index]>nums2[i]):
+                nums1.insert(index,nums2[i])
+                nums1.pop()
+                i+=1
+            else:
+                j+=1
+            index+=1
+        if(i<n):
+            while i<n:
+                nums1.insert(index,nums2[i])
+                nums1.pop()
+                i+=1
+                index+=1
+        
+
+solution=Solution()
+nums1=[1,2,3,0,0,0]
+solution.merge(nums1,3,[2,5,6],3)

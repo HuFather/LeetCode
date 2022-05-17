@@ -72,6 +72,34 @@ class Solution(object):
         current.next = list1 if list2 is None else list2
         return result.next
 
+
+    def reverseList(self,head):
+        result=None
+        while(head):
+            current=head.next
+            head.next=result
+            result=head
+            head=current
+        return result
+
+
+
+
+    def isPalindrome(self,head):
+        slow=head
+        fast=head
+        while(fast and fast.next):
+            slow=slow.next
+            fast=fast.next.next
+        sss=Solution()
+        slow=sss.reverseList(slow)
+        while(slow):
+            if(head.val != slow.val):
+                return False
+            head=head.next
+            slow=slow.next
+        return True
+
     def hasCycle(self, head):
         """
         给你一个链表的头节点 head ，判断链表中是否有环。
@@ -97,17 +125,16 @@ class Solution(object):
 
         
 
-        
-
 
 solution = Solution()
 head = ListNode(1)
 node1 = ListNode(2)
-node2 = ListNode(3)
-node3 = ListNode(4)
+node2 = ListNode(2)
+node3 = ListNode(1)
 node4 = ListNode(5)
-# head.next = node1
-# node1.next = node2
-# node2.next = node3
+head.next = node1
+node1.next = node2
+node2.next = node3
 # node3.next = node4
-solution.mergeTwoLists(head, node1)
+# solution.reverseList(head)
+solution.isPalindrome(head)

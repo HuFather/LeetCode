@@ -132,5 +132,22 @@ class Solution(object):
                 plus+=1
             result.append(currentList)
         return result
-                
+    
+    def sortedArrayToBST(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: TreeNode
+        """
+
+        if len(nums) ==0:
+            return None
+        mid=len(nums)//2
+        left = self.sortedArrayToBST(nums[:mid])
+        right = self.sortedArrayToBST(nums[mid+1:])
+        return TreeNode(nums[mid],left=left, right=right)
+        
+
+solution=Solution()
+node=solution.sortedArrayToBST([-10,-3,0,5,9])
+print(node)
 
