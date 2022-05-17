@@ -86,20 +86,37 @@ public class Solution {
         }
         return ans;
     }
-
     /**
      * 给定一个数组 prices ，它的第i 个元素prices[i] 表示一支给定股票第 i 天的价格。
      * <p>
      * 你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。
      * <p>
      * 返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。
-     * x->f(x)
-     * f(p)->max{f(p-1),f(p-1)+a[p]-f[p-1]}
      * 7, 2, 5, 3, 6, 4,9
      * 0,3,3,6,6,9
-     * @param nums
+     * 分为两种情况
+     * 1. 持有股票时的最大利润
+     *  1. 没有买卖：ap(p-1)
+     *  2. 刚买入：-prices[i]
+     *  =>f(p)=max(f(p-1)[0],-prices[p])
+     * 2. 没有持有股票时的最大利润
+     *  1. 没有买卖：dp(p-1)
+     *  2. 在当前卖出：dp(p-1)+prices[p]
+     *  =>f(p)=max(f(p-1)[1],f(p-1)[0]+prices[p])
+     * @param
      * @return
      */
+    public static int maxProfile1(int[] prices){
+        if(prices ==null || prices.length==0)
+            return 0;
+        int no=-prices[0];
+        int yes=0;
+        for (int i = 1; i < prices.length; i++) {
+            no=Math.max(no,-prices[i]);
+            yes=Math.max(yes,no+prices[i]);
+        }
+        return yes;
+    }
     public static int maxProfile(int[] nums) {
         int[] result = new int[nums.length + 1];
         result[0] = 0;
