@@ -12,14 +12,15 @@ public class Solution {
     public static void main(String[] args) {
         // climbStairs(1);
         // findMaxSeries(new int[]{0, 1, 5, 3, 4, 6, 9, 7, 8});
-        int result = maxProfile(new int[]{7,1,5,3,6,4});
-
+        //int result = maxProfile(new int[]{7,1,5,3,6,4});
+        int result=maxSubArray(new int[]{-2,-1,-3,-4,-1,-2,-1,-5,-4});
     }
 
     /**
      * 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
      * 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
-     *
+     * f(x)
+     * 状态转移：f(x)=f(x-1)+f(x-2)
      * @param n
      * @return
      */
@@ -61,8 +62,10 @@ public class Solution {
 
     /**
      * 找出最长递增数列
+     * 状态：当前的最大递增数列个数
      * x->f(x);f(x)=f(p)+1
-     *
+     * 状态转移：f(x)->max(f(x),f(p)+1) => p<x and db[p]<db[x]
+     * 2 5 3 6 1 7
      * @param nums
      * @return
      */
@@ -117,6 +120,12 @@ public class Solution {
         }
         return yes;
     }
+
+    /**
+     * 双指针，利用向前的特点，记录最小的数，以及最大值，取结束后的最大值即可
+     * @param nums
+     * @return
+     */
     public static int maxProfile(int[] nums) {
         if(null == nums || nums.length==0)
             return 0;
@@ -130,5 +139,38 @@ public class Solution {
         }
 
         return max;
+    }
+
+    /**
+     * 给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+     * 子数组 是数组中的一个连续部分。
+     *  状态：f(x) x:已x结尾的最大字序和
+     *  转移：f(x)=>max(f(x-1),0)+nums[x] x>p
+     *  -2,1,-3,4,-1,2,1,-5,4
+     *  个人觉得，动态规划难在如何确认状态。正确的确立状态之后，转移方程和初始条件，边界条件都会简单很多。
+     *
+     * 在确定状态时，一定要和转移方程地建立相适应。在本题中，同样建立一个dp[]数列来储存结果，如果将状态设定为，dp[i]用来表示，
+     * 在i之前得到的最佳子序和，那么dp[i]和dp[i-1]之间便很难建立关系，因为仅仅是i之前得到的最佳子序和，最佳子序列可能与第i个元素相邻，也可能不相邻，
+     * 这样就写不出状态转移方程。（如果这种建立状态的方法成立，最后需要返回的结果是dp[len-1]）
+     *
+     * 正确是方法是dp[i]用来表示，终点在i的子序列的最佳子序和，这样dp[i]和dp[i-1]之间便有简单明了的关系。
+     * 这时需要用到贪心法。此时，最后返回的值应该从dp数组中取最大值，即以i结尾的数组的最大子序和中找到最大的，
+     * 作为整个数组的最佳子序和。
+     dp[i] = Math.max(dp[i - 1], 0) + num[i];
+     * @param nums
+     * @return
+     */
+    public static int maxSubArray(int[] nums){
+        if(nums==null || nums.length==0)
+            return 0;
+
+        int total=nums[0];
+        int cur=nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            cur=Math.max(cur,0)+nums[i];
+            total=Math.max(total,cur);
+        }
+
+        return total;
     }
 }
