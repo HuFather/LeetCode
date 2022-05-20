@@ -194,5 +194,6 @@ public class Solution {
      */
     public static int rob(int[] nums) {
 
+        return 1;
     }
 }
