@@ -1,5 +1,6 @@
 package com.zhaohu.basic.math;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 public class Solution {
 
     public static void main(String[] args) {
-        countPrimes(10);
+        isPowerOfThree1(10);
     }
     /**
      * 给你一个整数 n ，找出从 1 到 n 各个整数的 Fizz Buzz 表示，并用字符串数组 answer（下标从 1 开始）返回结果，其中：
@@ -55,5 +56,33 @@ public class Solution {
         }
 
         return total;
+    }
+
+    public boolean isPowerOfThree(int n) {
+        if(n==1)
+            return true;
+        if(n==0)
+            return false;
+
+        if(n%3==0)
+            return isPowerOfThree(n/3);
+        else
+            return false;
+    }
+    public static boolean isPowerOfThree1(int n) {
+        Integer a=1;
+        Integer b=2;
+        Integer c=3;
+        Integer d=3;
+        Integer e=321;
+        Integer f=321;
+        Long g=3l;
+        System.out.println(c==d);
+        System.out.println(e==f);
+        System.out.println(c==(a+b));
+        System.out.println(e.equals(a+b));
+        System.out.println(g==(a+b));
+        System.out.println(g.equals(a+b));
+        return false;
     }
 }
