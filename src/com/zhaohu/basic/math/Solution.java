@@ -2,13 +2,15 @@ package com.zhaohu.basic.math;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Solution {
 
     public static void main(String[] args) {
-        isPowerOfThree1(10);
+//        isPowerOfThree1(10);
+        romanToInt("MCMXCIV");
     }
     /**
      * 给你一个整数 n ，找出从 1 到 n 各个整数的 Fizz Buzz 表示，并用字符串数组 answer（下标从 1 开始）返回结果，其中：
@@ -84,5 +86,30 @@ public class Solution {
         System.out.println(g==(a+b));
         System.out.println(g.equals(a+b));
         return false;
+    }
+
+    public static int romanToInt(String s){
+        HashMap<Character ,Integer> dic=new HashMap<Character, Integer>();
+        dic.put('I',1);
+        dic.put('V',5);
+        dic.put('X',10);
+        dic.put('L',50);
+        dic.put('C',100);
+        dic.put('D',500);
+        dic.put('M',1000);
+
+        char[] ss=s.toCharArray();
+        int result=dic.get(ss[0]);
+        int pre=result;
+        for (int i = 1; i < s.length(); i++) {
+            char current =ss[i];
+            int currentValue=dic.get(current);
+            result+=currentValue;
+            if(pre<currentValue)
+                result-=pre*2;
+            pre=currentValue;
+        }
+
+        return result;
     }
 }
