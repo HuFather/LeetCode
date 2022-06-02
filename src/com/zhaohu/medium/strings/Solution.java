@@ -1,4 +1,4 @@
-package com.zhaohu.medium;
+package com.zhaohu.medium.strings;
 
 import com.sun.deploy.util.JarUtil;
 import com.sun.deploy.util.StringUtils;
