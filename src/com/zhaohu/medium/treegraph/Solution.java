@@ -28,7 +28,7 @@ public class Solution {
         right.right=new TreeNode(7);
         root.right=right;
 
-        zigzagLevelOrder(root);
+        kthSmallest(root,2);
     }
 
     public List<Integer> inorderTraversal1(TreeNode root) {
@@ -202,7 +202,31 @@ public class Solution {
     }
 
 
+    /**
+     * 查找树种第k小的数
+     * @param root
+     * @param k
+     * @return
+     */
+    public static int kthSmallest(TreeNode root, int k) {
+        PriorityQueue<Integer> queue=new PriorityQueue<>();
+        addToQueue(root,queue);
 
+        int result=0;
+        for (int i = 0; i < k; i++) {
+            result=queue.poll();
+        }
+
+        return result;
+    }
+
+    public static void addToQueue(TreeNode root,PriorityQueue<Integer> queue){
+        if(root==null)
+            return;
+        queue.add(root.val);
+        addToQueue(root.left,queue);
+        addToQueue(root.right,queue);
+    }
 
     class Node {
         public int val;
@@ -222,7 +246,7 @@ public class Solution {
             right = _right;
             next = _next;
         }
-    };
+    }
 
     //     Definition for a binary tree node.
     public class TreeNode {
