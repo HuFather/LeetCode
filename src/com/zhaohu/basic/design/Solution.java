@@ -1,6 +1,7 @@
 package com.zhaohu.basic.design;
 
 import com.sun.javafx.scene.control.skin.VirtualFlow;
+import com.zhaohu.basic.array.IntersectionCollection;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -17,6 +18,8 @@ public class Solution {
         int[] result= solution.reset();
         result=solution.shuffle();
         result=solution.reset();
+
+
     }
 
     private int[] originNums;

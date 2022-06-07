@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class IntersectionCollection {
+    protected  static String xxx="0-";
     public static int[] intersection(int[] nums1,int[] nums2){
         Arrays.sort(nums1);
         Arrays.sort(nums2);
