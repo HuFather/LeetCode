@@ -1,10 +1,5 @@
 package com.zhaohu.medium.treegraph;
 
-import sun.awt.image.InputStreamImageSource;
-
-import javax.sound.midi.Soundbank;
-import java.io.DataInputStream;
-import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -33,7 +28,7 @@ public class Solution {
 
     public List<Integer> inorderTraversal1(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        Stack<TreeNode> nodes = new Stack<>();
+        Deque<TreeNode> nodes = new LinkedList<>();
 
         while (root != null || !nodes.isEmpty()) {
             while (root != null) {
@@ -228,6 +223,30 @@ public class Solution {
         addToQueue(root.right,queue);
     }
 
+
+    /**
+     * 岛屿数量
+     * @param grid
+     * @return
+     *   ["1","1","0","0","0"],
+     *   ["1","1","0","0","0"],
+     *   ["0","0","1","0","0"],
+     *   ["0","0","0","1","1"]
+     *
+     */
+    public int numIslands(char[][] grid) {
+        int row=grid.length;
+        int column=grid[0].length;
+        int left=1;
+        int right=1;
+        while (left<column && right<row){
+            int current=grid[right-1][left-1];
+            int left1=1,right1=1;
+            while (left1<column || right1<row){
+
+            }
+        }
+    }
     class Node {
         public int val;
         public Node left;
