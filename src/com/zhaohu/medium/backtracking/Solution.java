@@ -89,6 +89,86 @@ public class Solution {
 
 
     /**
+     * 字母组合
+     *
+     * @param digits
+     * @return
+     */
+    public static List<String> letterCombinations1(String digits) {
+        LinkedList<String > result=new LinkedList<>();
+
+        if(digits==null || digits.isEmpty())
+            return result;
+
+        result.add("");
+        char[][] tab = {{'a', 'b', 'c'}, {'d', 'e', 'f'}, {'g', 'h', 'i'},
+                {'j', 'k', 'l'}, {'m', 'n', 'o'}, {'p', 'q', 'r', 's'},
+                {'t', 'u', 'v'}, {'w', 'x', 'y', 'z'}};
+
+        while (result.peek().length()!=digits.length()){
+            String remove=result.poll();
+            char[] chars=tab[digits.charAt(remove.length())-'2'];
+            for (int i = 0; i < chars.length; i++) {
+                result.add(remove+chars[i]);
+            }
+        }
+
+        return result;
+    }
+
+    public List<String> letterCombinations2(String digits) {
+        LinkedList<String > result=new LinkedList<>();
+        if(digits==null || digits.isEmpty())
+            return result;
+        char[][] tab = {{'a', 'b', 'c'}, {'d', 'e', 'f'}, {'g', 'h', 'i'},
+                {'j', 'k', 'l'}, {'m', 'n', 'o'}, {'p', 'q', 'r', 's'},
+                {'t', 'u', 'v'}, {'w', 'x', 'y', 'z'}};
+        dfs(result,0,"",tab,digits);
+        return result;
+    }
+
+    public void dfs(List<String> result,int index,String path,char[][] tab,String digits){
+        if(path.length()==digits.length()){
+            result.add(path);
+            return;
+        }
+
+        char[] chars=tab[digits.charAt(index)-'2'];
+        for (int i = 0; i < chars.length; i++) {
+            dfs(result,index+1,path+chars[i],tab,digits);
+        }
+    }
+
+    /**
+     * 括号生成
+     * @param n
+     * @return
+     */
+    public List<String> generateParenthesis(int n) {
+        List<String> result=new ArrayList<>();
+
+        def(result,n,n,"");
+
+        return result;
+    }
+
+    public void def(List<String> result,int left,int right,String curStr){
+
+        if(left==right && left==0){
+            result.add(curStr);
+            return;
+        }
+        //左括号选完之后，不能再选了
+        if(left<0)
+            return;
+        if (left>right)
+            return;
+
+        def(result,left-1,right,curStr+"(");
+        def(result,left,right-1,curStr+")");
+    }
+
+    /**
      * 数字全排列
      *
      * @param nums
