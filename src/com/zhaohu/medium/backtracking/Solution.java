@@ -229,6 +229,7 @@ public class Solution {
 
     public void trace(int[] nums, LinkedList<String> result, int level) {
 
+
     }
 
 }
