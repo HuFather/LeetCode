@@ -51,10 +51,18 @@ public class Solution {
     public static int[] topKFrequent(int[] nums, int k) {
         HashMap<Integer,Integer> map=new HashMap<>();
         int[] result=new int[k];
-        int[] maxs=new int[k];
+
         for (int i = 0; i < nums.length; i++) {
             Integer value= map.put(nums[i],map.getOrDefault(nums[i],0)+1);
+        }
+        PriorityQueue<int[]> priorityQueue=new PriorityQueue<>((a,b)->b[1]-a[1]);
+        for (int key : map.keySet()){
+            priorityQueue.add(new int[]{key,map.get(key)});
+        }
 
+        for (int i = 0; i < k; i++) {
+            int[] res = priorityQueue.poll();
+            result[i]=res[0];
         }
 
         return result;
