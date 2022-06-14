@@ -11,8 +11,11 @@ public class Solution {
 
     public static void main(String[] args) {
 //        permutation(new int[]{1,2,3});
-        List<List<Integer>> result = permute(new int[]{1, 2, 3});
-        System.out.println(result);
+//        List<List<Integer>> result = permute(new int[]{1, 2, 3});
+//        System.out.println(result);
+//        List<List<Integer>> result = subsets1(new int[]{1, 2, 3});
+        char[][] test = new char[][]{{'a', 'b', 'c', 'e'}, {'s', 'f', 'c', 's'}, {'a', 'd', 'e', 'e'}};
+        boolean result = exist(test, "ba");
     }
 
     private static Map<Character, List<Character>> map = new HashMap<>();
@@ -228,7 +231,6 @@ public class Solution {
     }
 
     public void trace(int[] nums, LinkedList<String> result, int level) {
-
 
     }
 
