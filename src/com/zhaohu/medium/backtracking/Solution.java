@@ -230,8 +230,173 @@ public class Solution {
         return result;
     }
 
-    public void trace(int[] nums, LinkedList<String> result, int level) {
+    public static List<List<Integer>> subsets(int[] nums) {
+        LinkedList<List<Integer>> result = new LinkedList<>();
 
+        List<Integer> init = new LinkedList<>();
+        result.add(init);
+        int index = 0;
+        while (result.size() > index) {
+            List<Integer> current = result.get(index);
+
+            for (int i = 0; i < nums.length; i++) {
+                if (current.contains(nums[i]))
+                    continue;
+
+                List<Integer> add = new LinkedList<>();
+                add.addAll(current);
+                add.add(nums[i]);
+                result.add(add);
+            }
+            index++;
+        }
+
+        return result;
+    }
+
+    public static List<List<Integer>> subsets1(int[] nums) {
+
+        ArrayList<List<Integer>> result = new ArrayList<>();
+
+
+        tracing(nums, result, new ArrayList<>(), 0);
+
+        return result;
+    }
+
+    public static void tracing(int[] nums, List<List<Integer>> result, List<Integer> res, int start) {
+
+        result.add(new ArrayList<>(res));
+
+        for (int i = start; i < nums.length; i++) {
+            res.add(nums[i]);
+            tracing(nums, result, res, i + 1);
+
+            res.remove(res.size() - 1);
+        }
+    }
+
+
+    /**
+     * 单词搜索
+     *
+     * @param board
+     * @param word
+     * @return
+     */
+    public static boolean exist(char[][] board, String word) {
+        return exist(board, word, 0, 0, Integer.MAX_VALUE, Integer.MAX_VALUE,word.charAt(0)==board[0][0]);
+    }
+
+    /**
+     * 问题1. 处理回路的方式
+     * 问题2. 起点问题
+     * @param board
+     * @param word
+     * @param row
+     * @param column
+     * @param oldRow
+     * @param oldColumn
+     * @param used
+     * @return
+     */
+    public static boolean exist(char[][] board, String word, int row, int column, int oldRow, int oldColumn,boolean used) {
+
+        if (word == "" || word.length() == 0)
+            return true;
+
+        if (row < 0 || row >= board.length || column < 0 || column >= board[0].length)
+            return false;
+        if (row != 0 && column != 0 && word.charAt(0) != board[row][column])
+            return false;
+
+
+        if (board.length == row && board[0].length == column)
+            return false;
+        String newWord = word;
+        if (word.charAt(0) == board[row][column])
+            newWord = word.substring(1);
+
+        boolean up = false;
+        boolean down = false;
+        boolean left = false;
+        boolean right = false;
+        if (!(row - 1 == oldRow && column == oldColumn) || !used)
+            up = exist(board, newWord, row - 1, column, row, column,newWord!=word);//上
+
+        if (!(row + 1 == oldRow && column == oldColumn) || !used)
+            down = exist(board, newWord, row + 1, column, row, column,newWord!=word);//下
+        if (!(column - 1 == oldColumn && row == oldRow)|| !used)
+            left = exist(board, newWord, row, column - 1, row, column,newWord!=word);//左
+        if (!(row == oldRow && column + 1 == oldColumn)|| !used)
+            right = exist(board, newWord, row, column + 1, row, column,newWord!=word);//右
+
+        return up || down || left || right;
+    }
+
+
+    public static boolean exist1(char[][] board, String word) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if(dfs(board,word.toCharArray(),i,j,0))
+                    return true;
+            }
+        }
+        return false;
+    }
+    static boolean  dfs(char[][] board,char[] words,int i,int j,int index){
+        if(i<0 || i>=board.length || j<0 || j>=board[0].length || board[i][j]!=words[index])
+            return false;
+        if(index==words.length-1)
+            return true;
+        char temp=board[i][j];
+        board[i][j]='.';
+        boolean result=
+                dfs(board,words,i+1,j,index+1)
+                        || dfs(board,words,i-1,j,index+1)
+                        || dfs(board,words,i,j-1,index+1)
+                        || dfs(board,words,i,j+1,index+1);
+
+        board[i][j]=temp;
+
+        return result;
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
