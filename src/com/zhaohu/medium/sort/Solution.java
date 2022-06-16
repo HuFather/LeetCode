@@ -2,15 +2,17 @@ package com.zhaohu.medium.sort;
 
 import sun.reflect.generics.tree.Tree;
 
+import java.awt.font.NumericShaper;
 import java.util.*;
 
 public class Solution {
 
     public static void main(String[] args) {
-        int[] nums = new int[]{4,3, 3, 5, 5, 3, 5, 5, 6};
+        int[] nums = new int[]{4, 3, 4, 5, 6, 3, 5, 4, 6};
 
 //        int[] result= topKFrequent(nums,2);
-        findKthLargest1(nums, 3);
+        Solution solution=new Solution();
+        solution.findPeakElement(nums);
     }
 
     /**
@@ -148,6 +150,31 @@ public class Solution {
         int t = nums[i];
         nums[i] = nums[j];
         nums[j] = t;
+    }
+
+
+    /**
+     * 寻找峰值
+     * 1 1 2 1 3 4 3
+     *
+     * @param nums
+     * @return
+     */
+    public int findPeakElement(int[] nums) {
+        int mid = nums.length / 2;
+        return findPeak(nums,0,nums.length-1,mid);
+    }
+
+    public int findPeak(int[] nums, int left, int right, int middle) {
+        if (left == middle || right == middle)
+            return middle;
+        if (nums[middle] > nums[middle - 1] && nums[middle] > nums[middle + 1])
+            return middle;
+        if (nums[middle] > nums[middle + 1])
+            return findPeak(nums, left, middle+1, left + (middle - left) / 2);
+        else
+            return findPeak(nums, middle , right, middle + (right - middle) / 2);
+
     }
 
 }
