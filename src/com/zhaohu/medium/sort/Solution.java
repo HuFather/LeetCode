@@ -2,17 +2,14 @@ package com.zhaohu.medium.sort;
 
 import sun.reflect.generics.tree.Tree;
 
-import java.awt.font.NumericShaper;
 import java.util.*;
 
 public class Solution {
 
     public static void main(String[] args) {
-        int[] nums = new int[]{4, 3, 4, 5, 6, 3, 5, 4, 6};
+        int[] nums = new int[]{3,3,5,5,3,5,5,6};
 
-//        int[] result= topKFrequent(nums,2);
-        Solution solution=new Solution();
-        solution.findPeakElement(nums);
+        int[] result= topKFrequent(nums,2);
     }
 
     /**
@@ -47,18 +44,25 @@ public class Solution {
 
     /**
      * 找出出现频率前k高的元素
-     *
      * @param nums
      * @param k
      * @return
      */
     public static int[] topKFrequent(int[] nums, int k) {
-        HashMap<Integer, Integer> map = new HashMap<>();
-        int[] result = new int[k];
-        int[] maxs = new int[k];
-        for (int i = 0; i < nums.length; i++) {
-            Integer value = map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+        HashMap<Integer,Integer> map=new HashMap<>();
+        int[] result=new int[k];
 
+        for (int i = 0; i < nums.length; i++) {
+            Integer value= map.put(nums[i],map.getOrDefault(nums[i],0)+1);
+        }
+        PriorityQueue<int[]> priorityQueue=new PriorityQueue<>((a,b)->b[1]-a[1]);
+        for (int key : map.keySet()){
+            priorityQueue.add(new int[]{key,map.get(key)});
+        }
+
+        for (int i = 0; i < k; i++) {
+            int[] res = priorityQueue.poll();
+            result[i]=res[0];
         }
 
         return result;
