@@ -7,9 +7,10 @@ import java.util.*;
 public class Solution {
 
     public static void main(String[] args) {
-        int[] nums = new int[]{3,3,5,5,3,5,5,6};
+        int[] nums = new int[]{3, 3, 5, 5, 3, 5, 5, 6};
 
-        int[] result= topKFrequent(nums,2);
+//        int[] result = topKFrequent(nums, 2);
+        findPeakElement1(new int[]{1});
     }
 
     /**
@@ -44,25 +45,26 @@ public class Solution {
 
     /**
      * 找出出现频率前k高的元素
+     *
      * @param nums
      * @param k
      * @return
      */
     public static int[] topKFrequent(int[] nums, int k) {
-        HashMap<Integer,Integer> map=new HashMap<>();
-        int[] result=new int[k];
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int[] result = new int[k];
 
         for (int i = 0; i < nums.length; i++) {
-            Integer value= map.put(nums[i],map.getOrDefault(nums[i],0)+1);
+            Integer value = map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
         }
-        PriorityQueue<int[]> priorityQueue=new PriorityQueue<>((a,b)->b[1]-a[1]);
-        for (int key : map.keySet()){
-            priorityQueue.add(new int[]{key,map.get(key)});
+        PriorityQueue<int[]> priorityQueue = new PriorityQueue<>((a, b) -> b[1] - a[1]);
+        for (int key : map.keySet()) {
+            priorityQueue.add(new int[]{key, map.get(key)});
         }
 
         for (int i = 0; i < k; i++) {
             int[] res = priorityQueue.poll();
-            result[i]=res[0];
+            result[i] = res[0];
         }
 
         return result;
@@ -166,19 +168,38 @@ public class Solution {
      */
     public int findPeakElement(int[] nums) {
         int mid = nums.length / 2;
-        return findPeak(nums,0,nums.length-1,mid);
+        return findPeak(nums, 0, nums.length - 1, mid);
     }
 
     public int findPeak(int[] nums, int left, int right, int middle) {
         if (left == middle || right == middle)
-            return middle;
+            return nums[left] > nums[right] ? left : right;
         if (nums[middle] > nums[middle - 1] && nums[middle] > nums[middle + 1])
             return middle;
         if (nums[middle] > nums[middle + 1])
-            return findPeak(nums, left, middle+1, left + (middle - left) / 2);
+            return findPeak(nums, left, middle + 1, left + (middle - left) / 2);
         else
-            return findPeak(nums, middle , right, middle + (right - middle) / 2);
+            return findPeak(nums, middle, right, middle + (right - middle) / 2);
 
+    }
+
+    public static int findPeakElement1(int[] nums) {
+        int left = 0;
+        int right = nums.length-1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (left == mid || right == mid)
+                return nums[left] > nums[right] ? left : right;
+
+            if(nums[mid]>nums[mid-1]&&nums[mid]>nums[mid+1])
+                return mid;
+            if(nums[mid]>nums[mid+1])
+                right=mid+1;
+            else
+                left=mid;
+        }
+
+        return -1;
     }
 
 }
