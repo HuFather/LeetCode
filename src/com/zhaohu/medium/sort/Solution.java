@@ -10,7 +10,7 @@ public class Solution {
         int[] nums = new int[]{3, 3, 5, 5, 3, 5, 5, 6};
 
 //        int[] result = topKFrequent(nums, 2);
-        findPeakElement1(new int[]{1});
+        findPeakElement1(new int[]{1,2,3});
     }
 
     /**
@@ -194,12 +194,12 @@ public class Solution {
             if(nums[mid]>nums[mid-1]&&nums[mid]>nums[mid+1])
                 return mid;
             if(nums[mid]>nums[mid+1])
-                right=mid+1;
+                right=mid;
             else
-                left=mid;
+                left=mid+1;
         }
 
-        return -1;
+        return 0;
     }
 
 }
