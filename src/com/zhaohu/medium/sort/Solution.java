@@ -2,6 +2,7 @@ package com.zhaohu.medium.sort;
 
 import sun.reflect.generics.tree.Tree;
 
+import java.lang.annotation.Target;
 import java.util.*;
 
 public class Solution {
@@ -10,7 +11,8 @@ public class Solution {
         int[] nums = new int[]{3, 3, 5, 5, 3, 5, 5, 6};
 
 //        int[] result = topKFrequent(nums, 2);
-        findPeakElement1(new int[]{1,2,3});
+        findPeakElement1(new int[]{1, 2, 3});
+        int[] result= searchRange(new int[]{2,1,1,1,3},1);
     }
 
     /**
@@ -185,21 +187,75 @@ public class Solution {
 
     public static int findPeakElement1(int[] nums) {
         int left = 0;
-        int right = nums.length-1;
+        int right = nums.length - 1;
         while (left <= right) {
             int mid = left + (right - left) / 2;
             if (left == mid || right == mid)
                 return nums[left] > nums[right] ? left : right;
 
-            if(nums[mid]>nums[mid-1]&&nums[mid]>nums[mid+1])
+            if (nums[mid] > nums[mid - 1] && nums[mid] > nums[mid + 1])
                 return mid;
-            if(nums[mid]>nums[mid+1])
-                right=mid;
+            if (nums[mid] > nums[mid + 1])
+                right = mid;
             else
-                left=mid+1;
+                left = mid + 1;
         }
 
         return 0;
     }
+
+    /**
+     * 查找给定元素左右坐标
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int[] searchRange(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            return new int[]{-1, -1};
+        }
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            if (nums[left] != target)
+                left++;
+            if (nums[right] != target)
+                right--;
+            if (left<=right && nums[left] == target && nums[right] == target)
+                break;
+        }
+
+        if (left > right )
+            return new int[]{-1, -1};
+
+        return new int[]{left, right};
+    }
+
+    public int[] searchRange1(int[] nums, int target) {
+        int left = -1;
+        int right = -1;
+        int index = findTarget(nums, 0, nums.length - 1, target);
+
+        return nums;
+    }
+
+    public int findTarget(int[] nums, int left, int right, int target) {
+
+        int mid = left + (right - left) / 2;
+        int l = -1;
+        int r = -1;
+        if (nums[mid] == target) {
+            return mid;
+        }
+        if (left == right)
+            return -1;
+        if (nums[mid] < target) {
+            return findTarget(nums, left, mid, target);
+        } else {
+            return findTarget(nums, mid + 1, right, target);
+        }
+    }
+
 
 }
