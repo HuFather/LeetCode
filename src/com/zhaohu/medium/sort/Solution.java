@@ -258,4 +258,36 @@ public class Solution {
     }
 
 
+    /**
+     * 合并区间
+     * @param intervals
+     * @return
+     */
+    public int[][] merge(int[][] intervals) {
+        if (intervals==null || intervals.length<2)
+            return intervals;
+
+        PriorityQueue<int[]> queue=new PriorityQueue<int[]>(Comparator.comparingInt(a -> a[0]));
+        for (int i = 0; i < intervals.length; i++) {
+            queue.add(intervals[i]);
+        }
+        List<int[]> list=new ArrayList<>();
+        int[] current=queue.poll();
+        while (!queue.isEmpty()){
+            int [] result=queue.poll();
+            if(current[1]>=result[0]  ){
+                if(current[1]<result[1])
+                    current[1]=result[1];
+
+            }else {
+                list.add(current);
+                current=result;
+            }
+            if(queue.isEmpty()){
+                list.add(current);
+            }
+        }
+
+        return list.toArray(new int[list.size()][2]);
+    }
 }
