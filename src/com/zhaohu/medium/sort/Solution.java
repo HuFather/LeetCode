@@ -12,7 +12,7 @@ public class Solution {
 
 //        int[] result = topKFrequent(nums, 2);
         findPeakElement1(new int[]{1, 2, 3});
-        int[] result= searchRange(new int[]{2,1,1,1,3},1);
+        int[] result = searchRange(new int[]{2, 1, 1, 1, 3}, 1);
     }
 
     /**
@@ -222,11 +222,11 @@ public class Solution {
                 left++;
             if (nums[right] != target)
                 right--;
-            if (left<=right && nums[left] == target && nums[right] == target)
+            if (left <= right && nums[left] == target && nums[right] == target)
                 break;
         }
 
-        if (left > right )
+        if (left > right)
             return new int[]{-1, -1};
 
         return new int[]{left, right};
@@ -260,34 +260,80 @@ public class Solution {
 
     /**
      * 合并区间
+     *
      * @param intervals
      * @return
      */
     public int[][] merge(int[][] intervals) {
-        if (intervals==null || intervals.length<2)
+        if (intervals == null || intervals.length < 2)
             return intervals;
 
-        PriorityQueue<int[]> queue=new PriorityQueue<int[]>(Comparator.comparingInt(a -> a[0]));
+        PriorityQueue<int[]> queue = new PriorityQueue<int[]>(Comparator.comparingInt(a -> a[0]));
         for (int i = 0; i < intervals.length; i++) {
             queue.add(intervals[i]);
         }
-        List<int[]> list=new ArrayList<>();
-        int[] current=queue.poll();
-        while (!queue.isEmpty()){
-            int [] result=queue.poll();
-            if(current[1]>=result[0]  ){
-                if(current[1]<result[1])
-                    current[1]=result[1];
+        List<int[]> list = new ArrayList<>();
+        int[] current = queue.poll();
+        while (!queue.isEmpty()) {
+            int[] result = queue.poll();
+            if (current[1] >= result[0]) {
+                if (current[1] < result[1])
+                    current[1] = result[1];
 
-            }else {
+            } else {
                 list.add(current);
-                current=result;
+                current = result;
             }
-            if(queue.isEmpty()){
+            if (queue.isEmpty()) {
                 list.add(current);
             }
         }
 
         return list.toArray(new int[list.size()][2]);
     }
+
+    /**
+     * 搜索旋转数组
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int search(int[] nums, int target) {
+        if (nums == null || nums.length == 0)
+            return -1;
+        return findPoint(nums, 0, nums.length - 1, target);
+    }
+
+    /**
+     * @param nums
+     * @param left
+     * @param right
+     * @param target
+     * @return
+     */
+    public int findPoint(int[] nums, int left, int right, int target) {
+        int middle = left + (right - left) / 2;
+        if (nums[middle] == target) {
+            return middle;
+        }
+        if(left==right)
+            return -1;
+
+        if(nums[middle]>=nums[left]){
+            if(nums[middle]>target && nums[left]<=target){
+                return findPoint(nums, left, middle, target);
+            }else {
+                return findPoint(nums, middle + 1, right, target);
+            }
+        }else {
+            if(nums[middle]<target && nums[right]>=target){
+                return findPoint(nums, middle + 1, right, target);
+            }
+            else {
+                return findPoint(nums, left, middle, target);
+            }
+        }
+    }
 }
+
