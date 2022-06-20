@@ -1,5 +1,6 @@
 package com.zhaohu.medium.sort;
 
+import sun.font.TrueTypeFont;
 import sun.reflect.generics.tree.Tree;
 
 import java.lang.annotation.Target;
@@ -12,7 +13,7 @@ public class Solution {
 
 //        int[] result = topKFrequent(nums, 2);
         findPeakElement1(new int[]{1, 2, 3});
-        int[] result= searchRange(new int[]{2,1,1,1,3},1);
+        int[] result = searchRange(new int[]{2, 1, 1, 1, 3}, 1);
     }
 
     /**
@@ -222,11 +223,11 @@ public class Solution {
                 left++;
             if (nums[right] != target)
                 right--;
-            if (left<=right && nums[left] == target && nums[right] == target)
+            if (left <= right && nums[left] == target && nums[right] == target)
                 break;
         }
 
-        if (left > right )
+        if (left > right)
             return new int[]{-1, -1};
 
         return new int[]{left, right};
@@ -255,6 +256,36 @@ public class Solution {
         } else {
             return findTarget(nums, mid + 1, right, target);
         }
+    }
+
+    /**
+     * 检索二维数组
+     * 行升序
+     * 列升序
+     *
+     * @param matrix
+     * @param target
+     * @return
+     */
+    public boolean searchMatrix(int[][] matrix, int target) {
+
+        if(matrix==null)
+            return false;
+
+        int row = 0;
+        int column = matrix[0].length - 1;
+
+        while (row < matrix.length && column >= 0) {
+            if (matrix[row][column] == target)
+                return true;
+            else if (matrix[row][column] < target) {
+                row++;
+            } else {
+                column--;
+            }
+        }
+
+        return false;
     }
 
 
