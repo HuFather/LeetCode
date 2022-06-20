@@ -1,5 +1,6 @@
 package com.zhaohu.medium.sort;
 
+import sun.font.TrueTypeFont;
 import sun.reflect.generics.tree.Tree;
 
 import java.lang.annotation.Target;
@@ -255,6 +256,36 @@ public class Solution {
         } else {
             return findTarget(nums, mid + 1, right, target);
         }
+    }
+
+    /**
+     * 检索二维数组
+     * 行升序
+     * 列升序
+     *
+     * @param matrix
+     * @param target
+     * @return
+     */
+    public boolean searchMatrix(int[][] matrix, int target) {
+
+        if(matrix==null)
+            return false;
+
+        int row = 0;
+        int column = matrix[0].length - 1;
+
+        while (row < matrix.length && column >= 0) {
+            if (matrix[row][column] == target)
+                return true;
+            else if (matrix[row][column] < target) {
+                row++;
+            } else {
+                column--;
+            }
+        }
+
+        return false;
     }
 
 
