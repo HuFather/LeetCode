@@ -36,4 +36,22 @@ class SolutionTest {
         result=solution.searchMatrix(nums,0);
         assertEquals(false,result);
     }
+
+    @Test
+    void search(){
+        int result=solution.search(new int[]{4,5,6,7,0,1,2,},2);
+        assertEquals(result,6);
+        result=solution.search(new int[]{5,1,3},3);
+        assertEquals(result,2);
+        result=solution.search(new int[]{5,1,3},5);
+        assertEquals(result,0);
+        result=solution.search(new int[]{5,1,3},1);
+        assertEquals(result,1);
+        result=solution.search(new int[]{4,5,6,7,8,1,2,3},8);
+        assertEquals(result,4);
+        result=solution.search(new int[]{4,5,6,7,0,1,2},3);
+        assertEquals(result,-1);
+        result=solution.search(new int[]{3,1},1);
+        assertEquals(result,1);
+    }
 }
