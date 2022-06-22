@@ -31,4 +31,16 @@ class SolutionTest {
         result = solution.canJump(nums);
         assertEquals(false, result);
     }
+
+    @Test
+    void uniquePaths(){
+        int result= solution.uniquePaths(3,7);
+        assertEquals(28,result);
+
+        result= solution.uniquePaths(3,2);
+        assertEquals(3,result);
+
+        result= solution.uniquePaths(3,3);
+        assertEquals(6,result);
+    }
 }
