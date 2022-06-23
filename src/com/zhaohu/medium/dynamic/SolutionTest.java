@@ -43,4 +43,19 @@ class SolutionTest {
         result= solution.uniquePaths(3,3);
         assertEquals(6,result);
     }
+
+    @Test
+    void coinChange(){
+        int[] coins=new int[]{1,2,5,10};
+        int result= solution.coinChange(coins,3);
+        assertEquals(2,result);
+
+        result= solution.coinChange(coins,15);
+        assertEquals(2,result);
+
+        coins=new int[]{1,2,5,11};
+        result= solution.coinChange(coins,15);
+        assertEquals(3,result);
+
+    }
 }

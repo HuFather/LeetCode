@@ -66,4 +66,38 @@ public class Solution {
         }
         return nums[m - 1][n - 1];
     }
+
+
+    /**
+     * 计算钱币
+     * 用最少的数量组合出目标数
+     * 1 5 11  =  17
+     * <p>
+     * 状态：
+     *
+     * @param coins
+     * @param amount
+     * @return
+     */
+    public int coinChange(int[] coins, int amount) {
+        int[] result = new int[coins.length];
+        int max = Integer.MAX_VALUE;
+        for (int i = coins.length-1; i >= 0; i--) {
+            int start = i;
+            int num = 0;
+            int value = amount;
+            while (start >= 0) {
+                num += value / coins[start];
+                int n = value % coins[start];
+                if (n == 0)
+                    break;
+                value = n;
+                start--;
+            }
+            result[i] = num;
+            max = max > num ? num : max;
+        }
+
+        return max;
+    }
 }
