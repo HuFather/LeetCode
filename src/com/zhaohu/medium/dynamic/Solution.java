@@ -82,7 +82,7 @@ public class Solution {
     public int coinChange(int[] coins, int amount) {
         int[] result = new int[coins.length];
         int max = Integer.MAX_VALUE;
-        for (int i = coins.length-1; i >= 0; i--) {
+        for (int i = coins.length - 1; i >= 0; i--) {
             int start = i;
             int num = 0;
             int value = amount;
@@ -99,5 +99,33 @@ public class Solution {
         }
 
         return max;
+    }
+
+    /**
+     * 状态：当前能组合的最小数量
+     * 转移：f(x)=min(f(j)+1) j<x
+     *
+     * @param coins
+     * @param amount
+     * @return
+     */
+    public int coinChange1(int[] coins, int amount) {
+        int[] result = new int[amount + 1];
+        for (int i = 1; i < result.length; i++) {
+            result[i] = -1;
+        }
+
+        for (int i = 1; i <= amount; i++) {
+            int num = Integer.MAX_VALUE;
+            for (int j = 0; j < coins.length; j++) {
+                int coin = coins[j];
+                if (i - coin >= 0) {
+                    num = num > result[i - coin] + 1 ? result[i - coin] + 1 : num;
+                }
+            }
+            result[i] = num;
+        }
+
+        return result[amount];
     }
 }

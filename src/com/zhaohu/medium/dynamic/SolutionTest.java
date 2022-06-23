@@ -33,29 +33,43 @@ class SolutionTest {
     }
 
     @Test
-    void uniquePaths(){
-        int result= solution.uniquePaths(3,7);
-        assertEquals(28,result);
+    void uniquePaths() {
+        int result = solution.uniquePaths(3, 7);
+        assertEquals(28, result);
 
-        result= solution.uniquePaths(3,2);
-        assertEquals(3,result);
+        result = solution.uniquePaths(3, 2);
+        assertEquals(3, result);
 
-        result= solution.uniquePaths(3,3);
-        assertEquals(6,result);
+        result = solution.uniquePaths(3, 3);
+        assertEquals(6, result);
     }
 
     @Test
-    void coinChange(){
-        int[] coins=new int[]{1,2,5,10};
-        int result= solution.coinChange(coins,3);
-        assertEquals(2,result);
+    void coinChange() {
+        int[] coins = new int[]{1, 2, 5, 10};
+        int result = solution.coinChange(coins, 3);
+        assertEquals(2, result);
 
-        result= solution.coinChange(coins,15);
-        assertEquals(2,result);
+        result = solution.coinChange(coins, 15);
+        assertEquals(2, result);
 
-        coins=new int[]{1,2,5,11};
-        result= solution.coinChange(coins,15);
-        assertEquals(3,result);
+        coins = new int[]{1, 2, 5, 11};
+        result = solution.coinChange(coins, 15);
+        assertEquals(3, result);
 
+    }
+
+    @Test
+    void coinChange1() {
+        int[] coins = new int[]{1, 2, 5, 10};
+        int result = solution.coinChange1(coins, 3);
+        assertEquals(2, result);
+
+        result = solution.coinChange1(coins, 15);
+        assertEquals(2, result);
+
+        coins = new int[]{1, 2, 5, 11};
+        result = solution.coinChange1(coins, 15);
+        assertEquals(3, result);
     }
 }
