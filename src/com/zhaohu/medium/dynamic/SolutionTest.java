@@ -71,5 +71,24 @@ class SolutionTest {
         coins = new int[]{1, 2, 5, 11};
         result = solution.coinChange1(coins, 15);
         assertEquals(3, result);
+
+        coins = new int[]{2};
+        result = solution.coinChange1(coins, 3);
+        assertEquals(-1, result);
+    }
+
+    @Test
+    void lengthOfLIS() {
+        int[] nums = new int[]{10,9,2,5,3,7,101,18};
+        int result=solution.lengthOfLIS(nums);
+        assertEquals(4,result);
+
+        nums=new int[]{0,1,0,3,2,3};
+        result= solution.lengthOfLIS(nums);
+        assertEquals(4,result);
+
+        nums=new int[]{7,7,7,7};
+        result= solution.lengthOfLIS(nums);
+        assertEquals(1,result);
     }
 }

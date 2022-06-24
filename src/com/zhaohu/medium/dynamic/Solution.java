@@ -119,13 +119,44 @@ public class Solution {
             int num = Integer.MAX_VALUE;
             for (int j = 0; j < coins.length; j++) {
                 int coin = coins[j];
-                if (i - coin >= 0) {
+                if (i - coin >= 0 && result[i - coin] != -1) {
                     num = num > result[i - coin] + 1 ? result[i - coin] + 1 : num;
+                    result[i] = num;
                 }
             }
-            result[i] = num;
+
         }
 
         return result[amount];
+    }
+
+
+    /**
+     * 最长递增子序列
+     * state: current highest order
+     * transfer: f(x)=
+     * [10,9,2,5,3,7,101,18]
+     *
+     * @param nums
+     * @return
+     */
+    public int lengthOfLIS(int[] nums) {
+        if (nums == null || nums.length == 0)
+            return 0;
+        int[] result = new int[nums.length];
+        result[0] = 1;
+        int max = 1;
+        for (int i = 1; i < nums.length; i++) {
+            for (int j = i - 1; j >= 0; j--) {
+                if (nums[j] < nums[i] && result[j]>=result[i]) {
+                    result[i] = result[j]+1;
+                }
+            }
+            max = result[i] > max ? result[i] : max;
+            if (result[i] == 0)
+                result[i] = 1;
+        }
+
+        return max;
     }
 }
