@@ -2,6 +2,7 @@ package com.zhaohu.medium.mathematics;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Solution {
     /**
@@ -29,5 +30,38 @@ public class Solution {
         }
 
         return newN;
+    }
+
+    /**
+     * 阶乘后的0
+     *
+     * @param n
+     * @return
+     */
+    public int trailingZeroes(int n) {
+        int result = 0;
+        while (n >= 5) {
+            result += n / 5;
+            n = n / 5;
+        }
+
+        return result;
+    }
+
+    /**
+     * excel序列号
+     * @param columnTitle
+     * @return
+     */
+    public int titleToNumber(String columnTitle) {
+        char[] chars = columnTitle.toCharArray();
+        int num=1;
+        int total=0;
+        for (int i = 0; i < chars.length ; i++) {
+            total+=num*(chars[chars.length-1-i]-'A'+1);
+            num*=26;
+        }
+
+        return total;
     }
 }

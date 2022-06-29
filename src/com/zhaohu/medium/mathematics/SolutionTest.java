@@ -12,4 +12,21 @@ class SolutionTest {
         boolean result = solution.isHappy(2);
         assertEquals(false,result);
     }
+
+    @Test
+    void trailingZeroes(){
+        int result=solution.trailingZeroes(5);
+        assertEquals(1,result);
+        result=solution.trailingZeroes(2);
+        assertEquals(0,result);
+
+        result=solution.trailingZeroes(13);
+        assertEquals(2,result);
+    }
+
+    @Test
+    void titleToNumber(){
+        int result = solution.titleToNumber("AB");
+        assertEquals(701,result);
+    }
 }
