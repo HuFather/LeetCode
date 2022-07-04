@@ -148,8 +148,8 @@ public class Solution {
         int max = 1;
         for (int i = 1; i < nums.length; i++) {
             for (int j = i - 1; j >= 0; j--) {
-                if (nums[j] < nums[i] && result[j]>=result[i]) {
-                    result[i] = result[j]+1;
+                if (nums[j] < nums[i] && result[j] >= result[i]) {
+                    result[i] = result[j] + 1;
                 }
             }
             max = result[i] > max ? result[i] : max;
@@ -158,5 +158,67 @@ public class Solution {
         }
 
         return max;
+    }
+
+
+    /**
+     * 求x的n次幂
+     *
+     * @param x
+     * @param n
+     * @return
+     */
+    public double myPow(double x, int n) {
+        double result = 1;
+        for (int i = n; i != 0; i /= 2) {
+            if (i % 2 != 0) {
+                result *= x;
+            }
+            x *= x;
+        }
+        return n < 0 ? 1 / result : result;
+    }
+
+    /**
+     * x的平方根
+     *
+     * @param x
+     * @return
+     */
+    public int mySqrt(int x) {
+        int left = 0;
+        int right = x;
+        int result=0;
+        while (left<=right){
+            int mid=left+(right-left)/2;
+            if((long)mid*mid<=x){
+                result=mid;
+                left=mid+1;
+            }else {
+                right=mid-1;
+            }
+        }
+        return result;
+    }
+
+    public int mySql1(int x){
+        if(x==0)
+            return 0;
+        double c=x,x0=x;
+        while (true){
+            double xi=0.5*(x0+c/x0);
+            if(Math.abs(x0-xi)<1e-7){
+                break;
+            }
+            x0=xi;
+        }
+        return (int) x0;
+    }
+
+    public int divide(int dividend, int divisor) {
+        if(divisor==1)
+            return dividend;
+
+        return 1;
     }
 }

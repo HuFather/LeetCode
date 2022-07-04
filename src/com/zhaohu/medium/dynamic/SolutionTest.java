@@ -79,16 +79,34 @@ class SolutionTest {
 
     @Test
     void lengthOfLIS() {
-        int[] nums = new int[]{10,9,2,5,3,7,101,18};
-        int result=solution.lengthOfLIS(nums);
-        assertEquals(4,result);
+        int[] nums = new int[]{10, 9, 2, 5, 3, 7, 101, 18};
+        int result = solution.lengthOfLIS(nums);
+        assertEquals(4, result);
 
-        nums=new int[]{0,1,0,3,2,3};
-        result= solution.lengthOfLIS(nums);
-        assertEquals(4,result);
+        nums = new int[]{0, 1, 0, 3, 2, 3};
+        result = solution.lengthOfLIS(nums);
+        assertEquals(4, result);
 
-        nums=new int[]{7,7,7,7};
-        result= solution.lengthOfLIS(nums);
-        assertEquals(1,result);
+        nums = new int[]{7, 7, 7, 7};
+        result = solution.lengthOfLIS(nums);
+        assertEquals(1, result);
+    }
+
+    @Test
+    void myPow() {
+        double result = solution.myPow(1, 1);
+        assertEquals(1, result);
+        result = solution.myPow(0, 1);
+        assertEquals(1, result);
+        result = solution.myPow(2, 3);
+        assertEquals(8, result);
+        result=solution.myPow(2,-2);
+        assertEquals(0.25,result);
+    }
+
+    @Test
+    void mySqrt() {
+        double result=solution.mySqrt(2147395599);
+        assertEquals(46339,result);
     }
 }
