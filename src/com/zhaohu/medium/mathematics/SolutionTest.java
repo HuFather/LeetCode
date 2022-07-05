@@ -29,4 +29,14 @@ class SolutionTest {
         int result = solution.titleToNumber("AB");
         assertEquals(701,result);
     }
+
+    @Test
+    void divide() {
+        int result=solution.divide(10,3);
+        assertEquals(3,result);
+    }
+
+    @Test
+    void quickAdd() {
+    }
 }
