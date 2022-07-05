@@ -29,4 +29,16 @@ class SolutionTest {
         int result = solution.titleToNumber("AB");
         assertEquals(701,result);
     }
+
+    @Test
+    void fractionToDecimal() {
+        String result = solution.fractionToDecimal(1,2);
+        assertEquals("0.5",result);
+
+        result=solution.fractionToDecimal(4,333);
+        assertEquals("0.(012)",result);
+
+        result=solution.fractionToDecimal(-1,-2147483648);
+
+    }
 }
