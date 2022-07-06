@@ -3,7 +3,7 @@ package com.zhaohu.medium.ohters;
 import java.util.Arrays;
 import java.util.Stack;
 
-import org.apache.commons.lang3.math.NumberUtils;
+
 
 
 public class Solution {
@@ -40,6 +40,8 @@ public class Solution {
         for (int i = 0; i < tokens.length; i++) {
             eval.push(tokens[i]);
         }
+        if(eval.size()==1)
+            return Integer.parseInt(eval.pop());
         return execute(eval, eval.pop());
     }
 
@@ -47,11 +49,11 @@ public class Solution {
         if (eval.size() > 0) {
 
             String middle = eval.pop();
-            if (!NumberUtils.isParsable(middle)) {
+            if (!tryParseInt(middle)) {
                 middle = String.valueOf(execute(eval, middle));
             }
             String left = eval.pop();
-            if (!NumberUtils.isParsable(left)) {
+            if (!tryParseInt(left)) {
                 left = String.valueOf(execute(eval, left));
             }
 
@@ -61,6 +63,15 @@ public class Solution {
             return result;
         }
         return 0;
+    }
+
+    private boolean tryParseInt(String target){
+        try {
+            Integer.parseInt(target);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public enum Operation {
@@ -100,6 +111,33 @@ public class Solution {
         }
 
         public abstract int execute(int left, int right);
+    }
+
+    private String[] tokens;
+    int count;
+    public int evalRPN1(String[] tokens) {
+        this.tokens=tokens;
+        count=tokens.length;
+
+        return evo();
+    }
+
+    private int evo(){
+        count--;
+        switch (tokens[count]){
+            case "+":
+                return evo()+evo();
+            case "-":
+                int left=evo();
+                return evo()-left;
+            case "*":
+                return evo()*evo();
+            case "/":
+                int left1=evo();
+                return evo()/left1;
+            default:
+                return Integer.parseInt(tokens[count]);
+        }
     }
 
 }
