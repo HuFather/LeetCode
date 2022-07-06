@@ -1,8 +1,6 @@
 package com.zhaohu.medium.mathematics;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Solution {
     /**
@@ -127,5 +125,53 @@ public class Solution {
         return true;
     }
 
+    /**
+     * 长除法
+     *
+     * @param numerator
+     * @param denominator
+     * @return
+     */
+    public String fractionToDecimal(int numerator, int denominator) {
+        long numeratorL = numerator;
+        long denominatorL = denominator;
+        boolean positive = false;
+        if (numerator > 0) {
+            numeratorL = -numerator;
+            positive = !positive;
+        }
+        if (denominator > 0) {
+            denominatorL = -denominator;
+            positive = !positive;
+        }
+
+
+        Map<Long, Integer> keys = new HashMap<>();
+        long integer = numeratorL / denominatorL;
+        StringBuilder stringBuilder = new StringBuilder();
+        long remainder = 0;
+        int index = 0;
+        while ((remainder = numeratorL % denominatorL) != 0) {
+            if (keys.containsKey(remainder)) {
+                int start = keys.get(remainder);
+                stringBuilder.insert(start, "(");
+                stringBuilder.append(")");
+                break;
+            }
+            keys.put(remainder, index++);
+            numeratorL = remainder * 10;
+            stringBuilder.append(numeratorL / denominatorL);
+        }
+
+        if(keys.size()>0)
+            stringBuilder.insert(0,".");
+        stringBuilder.insert(0, integer);
+
+
+        if (positive && numerator!=0)
+            stringBuilder.insert(0, "-");
+
+        return stringBuilder.toString();
+    }
 
 }
