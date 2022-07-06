@@ -31,6 +31,16 @@ class SolutionTest {
     }
 
     @Test
+    void divide() {
+        int result=solution.divide(10,3);
+        assertEquals(3,result);
+    }
+
+    @Test
+    void quickAdd() {
+    }
+
+    @Test
     void fractionToDecimal() {
         String result = solution.fractionToDecimal(1,2);
         assertEquals("0.5",result);
