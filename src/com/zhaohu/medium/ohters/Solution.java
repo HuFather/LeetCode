@@ -2,7 +2,7 @@ package com.zhaohu.medium.ohters;
 
 import java.util.*;
 
-import org.apache.commons.lang3.math.NumberUtils;
+//import org.apache.commons.lang3.math.NumberUtils;
 
 
 public class Solution {
@@ -46,13 +46,13 @@ public class Solution {
         if (eval.size() > 0) {
 
             String middle = eval.pop();
-            if (!NumberUtils.isParsable(middle)) {
-                middle = String.valueOf(execute(eval, middle));
-            }
+//            if (!NumberUtils.isParsable(middle)) {
+//                middle = String.valueOf(execute(eval, middle));
+//            }
             String left = eval.pop();
-            if (!NumberUtils.isParsable(left)) {
-                left = String.valueOf(execute(eval, left));
-            }
+//            if (!NumberUtils.isParsable(left)) {
+//                left = String.valueOf(execute(eval, left));
+//            }
 
             Operation operation = Arrays.stream(Operation.values()).filter(r->r.isTarget(oper)).findFirst().get();
             int result = operation.execute(Integer.valueOf(left),Integer.valueOf(middle));
@@ -127,7 +127,7 @@ public class Solution {
     }
 
     /**
-     * 
+     *
      * @param tasks
      * @param n
      * @return
