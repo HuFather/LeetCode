@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -19,7 +20,6 @@ import java.util.stream.Stream;
 public class Solution {
     /**
      * 除自身为数组的乘积
-     *
      * @param nums
      * @return
      * @throws IOException
@@ -70,7 +70,7 @@ public class Solution {
                 result.add(matrix[m - time][i]);
             }
             for (int i = m - time; i >= time + 1; i--)
-                
+
             time++;
         }
 
