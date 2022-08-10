@@ -70,8 +70,8 @@ public class Solution {
                 result.add(matrix[m - time][i]);
             }
             for (int i = m - time; i >= time + 1; i--)
-                
-            time++;
+
+                time++;
         }
 
         return result;
@@ -79,22 +79,64 @@ public class Solution {
 
     /**
      * 最大面积
+     *
      * @param height
      * @return
      */
     public int maxArea(int[] height) {
-        int left=0,right=height.length-1;
-        int ans=0;
-        while (left<=right){
-            int result=Math.min(height[left],height[right])*(right-left);
-            ans=Math.max(result,ans);
-            if(height[left]<height[right]){
+        int left = 0, right = height.length - 1;
+        int ans = 0;
+        while (left <= right) {
+            int result = Math.min(height[left], height[right]) * (right - left);
+            ans = Math.max(result, ans);
+            if (height[left] < height[right]) {
                 left++;
-            }else {
+            } else {
                 right--;
             }
         }
 
         return ans;
     }
+
+    /**
+     * 生命游戏，复制数组解决
+     *
+     * @param board
+     */
+    public void gameOfLife(int[][] board) {
+        int row = board.length;
+        int column = board[0].length;
+
+        int[][] replicas = new int[row][column];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                replicas[i][j] = board[i][j];
+            }
+        }
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                int liveNum = 0;
+                //获取周围的活细胞数量
+                for (int k = -1; k < 2; k++) {
+                    for (int l = -1; l < 2; l++) {
+                        int r = i + k;
+                        int c = j + l;
+                        if (!(r == i && c == j) && r >= 0 && c >= 0 && r<row && c<column && replicas[r][c] == 1) {
+                            liveNum++;
+                        }
+                    }
+                }
+
+                if (replicas[i][j] == 1 && (liveNum < 2 || liveNum > 3)) {
+                    board[i][j] = 0;
+                }
+                if (replicas[i][j] == 0 && liveNum == 3) {
+                    board[i][j] = 1;
+                }
+            }
+        }
+    }
+
 }

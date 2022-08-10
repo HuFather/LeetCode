@@ -9,17 +9,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SolutionTest {
 
-    Solution solution=new Solution();
+    Solution solution = new Solution();
+
     @Test
     void productExceptSelf() {
-       int[] result= solution.productExceptSelf(new int[]{1,2,3,4});
+        int[] result = solution.productExceptSelf(new int[]{1, 2, 3, 4});
 
     }
 
     @Test
     void spiralOrder() {
-        int[][] nums=new int[][]{{3},{2}};
-        List<Integer> result= solution.spiralOrder(nums);
+        int[][] nums = new int[][]{{3}, {2}};
+        List<Integer> result = solution.spiralOrder(nums);
 
+    }
+
+    @Test
+    void gameofLife() {
+        int[][] nums = new int[][]{{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}};
+        solution.gameOfLife(nums);
     }
 }
