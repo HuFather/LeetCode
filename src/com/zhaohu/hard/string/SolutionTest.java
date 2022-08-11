@@ -29,4 +29,14 @@ class SolutionTest {
         int[][] nums = new int[][]{{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}};
         solution.gameOfLife(nums);
     }
+
+    @Test
+    void firstMissingPositive() {
+        int[] nums=new int[]{1,2,0};
+        int result = solution.firstMissingPositive(nums);
+        assertEquals(3,result);
+        nums=new int[]{7,8,9,11,12};
+        result=solution.firstMissingPositive(nums);
+        assertEquals(10,result);
+    }
 }
