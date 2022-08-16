@@ -5,9 +5,7 @@ import javafx.scene.Group;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -70,8 +68,8 @@ public class Solution {
                 result.add(matrix[m - time][i]);
             }
             for (int i = m - time; i >= time + 1; i--)
-                
-            time++;
+
+                time++;
         }
 
         return result;
@@ -79,18 +77,19 @@ public class Solution {
 
     /**
      * 最大面积
+     *
      * @param height
      * @return
      */
     public int maxArea(int[] height) {
-        int left=0,right=height.length-1;
-        int ans=0;
-        while (left<=right){
-            int result=Math.min(height[left],height[right])*(right-left);
-            ans=Math.max(result,ans);
-            if(height[left]<height[right]){
+        int left = 0, right = height.length - 1;
+        int ans = 0;
+        while (left <= right) {
+            int result = Math.min(height[left], height[right]) * (right - left);
+            ans = Math.max(result, ans);
+            if (height[left] < height[right]) {
                 left++;
-            }else {
+            } else {
                 right--;
             }
         }
@@ -146,22 +145,53 @@ public class Solution {
      */
     public int firstMissingPositive(int[] nums) {
         for (int i = 0; i < nums.length; i++) {
-            if(nums[i]<=0)
-                nums[i]=nums.length+1;
+            if (nums[i] <= 0)
+                nums[i] = nums.length + 1;
         }
 
         for (int i = 0; i < nums.length; i++) {
-            int num=Math.abs(nums[i]);
-            if(num<=nums.length){
-                nums[num-1]=-Math.abs(nums[num-1]);
+            int num = Math.abs(nums[i]);
+            if (num <= nums.length) {
+                nums[num - 1] = -Math.abs(nums[num - 1]);
             }
         }
         for (int i = 0; i < nums.length; i++) {
-            if(nums[i]>0)
-                return i+1;
+            if (nums[i] > 0)
+                return i + 1;
         }
 
-        return nums.length+1;
+        return nums.length + 1;
+    }
+
+    /**
+     * 最长连续序列
+     *
+     * @param nums 1,3,5,2,4,6
+     * @return
+     */
+    public int longestConsecutive(int[] nums) {
+        Map<Integer, Integer> temp = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            temp.put(nums[i], nums[i] + 1);
+        }
+
+        int maxNum = Integer.MIN_VALUE;
+        for (int key : temp.keySet()) {
+            maxNum = Math.min(maxNum, getValue(key, temp));
+        }
+        return maxNum;
+    }
+
+    private int getValue(int key, Map<Integer, Integer> map) {
+        Integer result = map.get(key);
+        int num=0;
+        if (result != null) {
+            int re= getValue(result, map);
+            num=re+1;
+            return num;
+        }
+
+        return num;
     }
 
 }
