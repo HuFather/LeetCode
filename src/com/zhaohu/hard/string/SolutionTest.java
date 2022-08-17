@@ -39,4 +39,11 @@ class SolutionTest {
         result=solution.firstMissingPositive(nums);
         assertEquals(10,result);
     }
+
+    @Test
+    void longestConsecutive() {
+        int[] nums=new int[]{7,1,3,5,2,4,6};
+        int result= solution.longestConsecutive(nums);
+        assertEquals(6,result);
+    }
 }

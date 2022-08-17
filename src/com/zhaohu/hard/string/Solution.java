@@ -170,6 +170,8 @@ public class Solution {
      * @return
      */
     public int longestConsecutive(int[] nums) {
+        if (nums == null || nums.length == 0)
+            return 0;
         Map<Integer, Integer> temp = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             temp.put(nums[i], nums[i] + 1);
@@ -177,21 +179,15 @@ public class Solution {
 
         int maxNum = Integer.MIN_VALUE;
         for (int key : temp.keySet()) {
-            maxNum = Math.min(maxNum, getValue(key, temp));
+            int num=0;
+            while (temp.containsKey(key)) {
+                num++;
+                key++;
+            }
+            maxNum = Math.max(maxNum, num);
         }
         return maxNum;
     }
 
-    private int getValue(int key, Map<Integer, Integer> map) {
-        Integer result = map.get(key);
-        int num=0;
-        if (result != null) {
-            int re= getValue(result, map);
-            num=re+1;
-            return num;
-        }
-
-        return num;
-    }
 
 }
