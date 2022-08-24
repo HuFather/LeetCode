@@ -177,19 +177,19 @@ public class Solution {
             temp.add(nums[i]);
         }
 
-        int maxNum = Integer.MIN_VALUE;
-        Set<Integer> tempInt=new HashSet<>();
-
-        for (int key : temp.toArray(new Integer[0])) {
-            int num=0;
-            while (!tempInt.contains(key)) {
-                num++;
-                tempInt.add(key);
-                key++;
+        int max=Integer.MIN_VALUE;
+        for (int key:temp){
+            if(!temp.contains(key-1)){
+                int num=1;
+                while (temp.contains(key+1)){
+                    num++;
+                    key+=1;
+                }
+                max=Math.max(max,num);
             }
-            maxNum = Math.max(maxNum, num);
         }
-        return maxNum;
+
+        return max;
     }
 
 
