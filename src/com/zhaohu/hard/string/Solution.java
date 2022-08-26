@@ -192,5 +192,68 @@ public class Solution {
         return max;
     }
 
+    /**
+     * 寻找重复数
+     * @param nums
+     * @return
+     */
+    public int findDuplicate(int[] nums) {
+        int low=0,fast=0;
+        do{
+            low=nums[low];
+            fast=nums[nums[fast]];
+        }
+        while (low!=fast);
+
+        low=0;
+        while (low!=fast){
+            low=nums[low];
+            fast=nums[fast];
+        }
+
+        return low;
+    }
+
+    /**
+     * 基本计算器
+     * @param s
+     * @return
+     */
+    public int calculate(String s) {
+        Deque<Integer> stack=new ArrayDeque<>();
+
+        char preCalculate='+';
+        int num=0;
+
+        for (int i = 0; i <s.length() ; i++) {
+            if(Character.isDigit(s.charAt(i))){
+                num=num*10+s.charAt(i)-'0';
+            }
+            if(!Character.isDigit(s.charAt(i)) && s.charAt(i)!=' ' || i==s.length()-1){
+                switch (preCalculate){
+                    case '+':
+                        stack.push(num);
+                        break;
+                    case '-':
+                        stack.push(-num);
+                        break;
+                    case '*':
+                        stack.push(stack.pop()*num);
+                        break;
+                    case '/':
+                        stack.push(stack.pop()/num);
+                        break;
+                }
+                preCalculate=s.charAt(i);
+                num=0;
+            }
+        }
+        int result=0;
+        while (!stack.isEmpty()){
+            result+=stack.pop();
+        }
+
+        return result;
+    }
 
 }

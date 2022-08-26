@@ -46,4 +46,15 @@ class SolutionTest {
         int result= solution.longestConsecutive(nums);
         assertEquals(6,result);
     }
+
+    @Test
+    void findDuplicate() {
+        int[] nums=new int[]{1,3,4,2,2};
+        int result=solution.findDuplicate(nums);
+        assertEquals(2,result);
+
+        nums=new int[]{3,1,3,4,2};
+        result=solution.findDuplicate(nums);
+        assertEquals(3,result);
+    }
 }
