@@ -46,4 +46,15 @@ class SolutionTest {
         int result= solution.longestConsecutive(nums);
         assertEquals(6,result);
     }
+
+    @Test
+    void maxSlidingWindow() {
+        int[] nums=new int[]{1,3,-1,-3,5,3,6,7};
+        int[] result=solution.maxSlidingWindow(nums,3);
+        assertArrayEquals(new int[]{3,3,5,5,6,7},result);
+
+        nums=new int[]{1,-1};
+        result=solution.maxSlidingWindow(nums,1);
+        assertArrayEquals(new int[]{1},result);
+    }
 }

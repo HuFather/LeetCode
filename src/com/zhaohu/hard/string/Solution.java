@@ -1,13 +1,7 @@
 package com.zhaohu.hard.string;
 
-import javafx.scene.Group;
-
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * @creator : zhaohu
@@ -183,14 +177,46 @@ public class Solution {
                 int num=1;
                 while (temp.contains(key+1)){
                     num++;
-                    key+=1;
+                    key += 1;
                 }
-                max=Math.max(max,num);
+                max = Math.max(max, num);
             }
         }
 
         return max;
     }
 
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        PriorityQueue<Integer[]> stack = new PriorityQueue<>(new Comparator<Integer[]>() {
+            @Override
+            public int compare(Integer[] o1, Integer[] o2) {
+                return o1[0] != o2[0] ? o2[0] - o1[0] : o2[1] - o1[1];
+            }
+        });
+        for (int i = 0; i < k; i++) {
+            stack.add(new Integer[]{nums[i], i});
+        }
+
+        int[] result = new int[nums.length - k + 1];
+        result[0] = stack.peek()[0];
+        for (int i = k; i < nums.length; i++) {
+            stack.add(new Integer[]{nums[i], i});
+            while (stack.peek()[1] <= i - k) {
+                stack.poll();
+            }
+            result[i - k + 1] = stack.peek()[0];
+        }
+
+        return result;
+    }
+
+
+    private int maxNum(int[] nums, int start, int end) {
+        int max = nums[start];
+        for (int i = start + 1; i <= end; i++) {
+            max = Math.max(max, nums[i]);
+        }
+        return max;
+    }
 
 }
