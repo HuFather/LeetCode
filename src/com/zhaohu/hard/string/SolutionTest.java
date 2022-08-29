@@ -48,6 +48,17 @@ class SolutionTest {
     }
 
     @Test
+    void findDuplicate() {
+        int[] nums=new int[]{1,3,4,2,2};
+        int result=solution.findDuplicate(nums);
+        assertEquals(2,result);
+
+        nums=new int[]{3,1,3,4,2};
+        result=solution.findDuplicate(nums);
+        assertEquals(3,result);
+    }
+
+    @Test
     void maxSlidingWindow() {
         int[] nums=new int[]{1,3,-1,-3,5,3,6,7};
         int[] result=solution.maxSlidingWindow(nums,3);
